@@ -4,7 +4,12 @@
 <title>Cookie</title>
 <script>
 (function(){
-  
+  var getCookieValue = function(cookieName) {
+    var match = (';' + document.cookie).match(new RegExp(';' + cookieName + '=([^;]+)'));
+    if (match) {
+      return match[1];
+    }
+  };
 
  var addMessageHandler = function(handleEvent){
     if (window.addEventListener) {
@@ -26,14 +31,8 @@
   }
   
   addMessageHandler(function(event) {
-    var cookieValue = function(cookieName) {
-    var match = (';' + document.cookie).match(new RegExp(';' + cookieName + '=([^;]+)'));
-    if (match) 
-      return match[1];
-    };
-    
    	var cookieName = event.data ;
-    var cookieValue = cookieValue(cookieName);
+    var cookieValue = getCookieValue(cookieName);
     parent.postMessage({
       cookiesEnabled: cookiesEnabled,
       cookieName: cookieName,
