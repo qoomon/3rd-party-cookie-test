@@ -4,7 +4,7 @@
 <title>Cookie</title>
 <script>
 (function() {
-  function addEventHandler(handleEvent){
+  var addEventHandler = function(handleEvent){
     if (window.addEventListener) {
       window.addEventListener("message", handleEvent, false);
     } else {
