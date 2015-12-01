@@ -22,7 +22,7 @@
  
  function handleEvent (event) {
  	var message = event.data ;
- 	switch (message.type) {
+ 	switch (message) {
  	  case "cookie":
       alert( "postMessage: " + cookiesEnabled);
  	    parent.postMessage(cookiesEnabled, "*");
