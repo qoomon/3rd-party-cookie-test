@@ -22,7 +22,7 @@
   
   var  testCookie = document.domain + '_testCookie=dummyValue;';
   document.cookie = testCookie;
-  var cookiesEnabled =  document.cookie.indexOf( testCookie ) == -1;
+  var cookiesEnabled =  document.cookie.indexOf( testCookie ) >= 0;
   document.cookie = testCookie + 'expires=' + new Date(0).toGMTString() + ';';
   if(cookiesEnabled) {
     console.log( 'Cookies are enabled' );
