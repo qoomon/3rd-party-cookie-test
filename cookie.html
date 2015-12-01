@@ -46,8 +46,8 @@
   }
 
   addMessageHandler(function(event) {
-    var cookiesEnabled = checkCookiesEnabled
-   	var cookieName = event.data ;
+    var cookiesEnabled = checkCookiesEnabled();
+    var cookieName = event.data;
     var cookieValue = getCookieValue(cookieName);
     parent.postMessage({
       cookiesEnabled: cookiesEnabled,
