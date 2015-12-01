@@ -5,7 +5,19 @@
 <script>
 (function(){
   
-  function setCookie(cookieName, cookieValue, expireDate) {
+  addMessageHandler(function(event) {
+    var message = event.data;
+    var cookiesEnabled = checkCookiesEnabled();
+    var cookieValue = getCookie(message.cookieName);
+    parent.postMessage({
+      executionId: message.executionId,
+      cookiesEnabled: cookiesEnabled,
+      cookieName: message.cookieName,
+      cookieValue: cookieValue
+    },'*');
+  });
+  
+    function setCookie(cookieName, cookieValue, expireDate) {
     if(expireDate) {
       document.cookie = cookieName + '=' + cookieValue + '; expires=' + expireDate.toGMTString() + ';';
     } else {
@@ -37,24 +49,13 @@
     }
   };
   
-  var checkCookiesEnabled = function (){
+  var function checkCookiesEnabled(){
     var cookieName = document.domain + '_testCookie'
     setCookie(cookieName, "dummyValue");
     var cookiesEnabled =  containsCookie(cookieName);
     setCookie(cookieName, "", new Date(0));
     return cookiesEnabled;
   }
-
-  addMessageHandler(function(event) {
-    var cookiesEnabled = checkCookiesEnabled();
-    var cookieName = event.data;
-    var cookieValue = getCookie(cookieName);
-    parent.postMessage({
-      cookiesEnabled: cookiesEnabled,
-      cookieName: cookieName,
-      cookieValue: cookieValue
-    },'*');
-  });
 })();
 </script>
 </head>
