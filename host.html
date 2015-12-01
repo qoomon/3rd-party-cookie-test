@@ -10,7 +10,7 @@
   iFrame.style.height = "0px";
   iFrame.onload = function(){
     iFrame.contentWindow.postMessage("specialCookie", "*");
-  }
+  };
   document.body.appendChild(iFrame);
   
   addEventHandler(function(event){
