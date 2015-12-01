@@ -8,9 +8,9 @@
  document.cookie = testCookieName + "=yes;";
  var cookiesEnabled =  document.cookie.indexOf( testCookieName ) == -1 
  if(cookiesEnabled) {
-  alert( "Cookies are enabled" );
+  console.log( "Cookies are enabled" );
  } else {
-  alert( "Cookies are disabled" );
+  console.log(( "Cookies are disabled" );
  }
  
  if (window.addEventListener) {
@@ -22,10 +22,8 @@
  
  function handleEvent (event) {
  	var message = event.data ;
- 	alert( "receivedMessage: \n" + JSON.stringify(message,2,2));
  	switch (message) {
  	  case "cookie":
-      alert( "postMessage: " + cookiesEnabled);
  	    parent.postMessage(cookiesEnabled, "*");
  	    break;
  	  default:
