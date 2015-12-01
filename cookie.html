@@ -22,6 +22,7 @@
  
  function handleEvent (event) {
  	var message = event.data ;
+ 	alert( "receivedMessage: \n" + JSON.stringify(message,2,2));
  	switch (message) {
  	  case "cookie":
       alert( "postMessage: " + cookiesEnabled);
