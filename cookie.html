@@ -6,9 +6,9 @@
 var  testCookieName = 'TestForThirdPartyCookie';
 document.cookie = testCookieName + "=yes;";
 if ( document.cookie.indexOf( testCookieName ) == -1 ) {
- document.write( "<b>You do not 3rd party cookies enabled</b>" );
+ alert( "<b>You do not 3rd party cookies enabled</b>" );
 } else {
- document.write( "<b>You have 3rd party cookies enabled</b>" );
+ alert( "<b>You have 3rd party cookies enabled</b>" );
 }
 </script>
 </head>
