@@ -3,11 +3,11 @@
 <head>
 <title>Cookie</title>
 <script>
-(fucntion(){
+(function(){
  var  testCookieName = 'testCookie';
  document.cookie = testCookieName + "=yes;";
  var cookiesEnabled =  document.cookie.indexOf( testCookieName ) == -1 
- if(cookiesEnabled)
+ if(cookiesEnabled) {
   alert( "Cookies are enabled" );
  } else {
   alert( "Cookies are disabled" );
