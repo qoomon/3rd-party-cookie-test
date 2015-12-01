@@ -4,13 +4,13 @@
 <title>Cookie</title>
 <script>
 (function(){
-  function cookieValue(cookieName) {
+  var cookieValue = function(cookieName) {
     var match = (';' + document.cookie).match(new RegExp(';' + cookieName + '=([^;]+)'));
     if (match) 
       return match[1];
   }
 
- function addEventHandler(handleEvent){
+ var addEventHandler = function(handleEvent){
     if (window.addEventListener) {
       window.addEventListener("message", handleEvent, false);
     } else {
