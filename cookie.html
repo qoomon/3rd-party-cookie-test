@@ -7,10 +7,10 @@
  var  testCookieName = 'testCookie';
  document.cookie = testCookieName + "=yes;";
  var cookiesEnabled =  document.cookie.indexOf( testCookieName ) == -1 
-  if(cookiesEnabled)
-  alert( "3rd party cookies are enabled" );
+ if(cookiesEnabled)
+  alert( "Cookies are enabled" );
  } else {
-  alert( "3rd party cookies are disabled" );
+  alert( "Cookies are disabled" );
  }
  
  if (window.addEventListener) {
@@ -24,6 +24,7 @@
  	var message = event.data ;
  	switch (message.type) {
  	  case "cookie":
+      alert( "postMessage: " + cookiesEnabled);
  	    parent.postMessage(cookiesEnabled, "*");
  	    break;
  	  default:
