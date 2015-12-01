@@ -9,7 +9,7 @@
   iFrame.style.width = "0px";
   iFrame.style.height = "0px";
   iFrame.onload = function(){
-    iFrame.postMessage("cookie", "*");
+    iFrame.contentWindow.postMessage("cookie", "*");
   }
   document.body.appendChild(iFrame);
   
