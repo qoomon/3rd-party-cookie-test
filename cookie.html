@@ -4,20 +4,16 @@
 <title>Cookie</title>
 <script>
 (function(){
-  var cookieValue = function(cookieName) {
-    var match = (';' + document.cookie).match(new RegExp(';' + cookieName + '=([^;]+)'));
-    if (match) 
-      return match[1];
-  }
+  
 
- var addEventHandler = function(handleEvent){
+ var addMessageHandler = function(handleEvent){
     if (window.addEventListener) {
       window.addEventListener("message", handleEvent, false);
     } else {
     // Internet Explorer versions prior to IE 9
       window.attachEvent("onmessage", handleEvent);
     }
-  } 
+  }; 
   
   var  testCookie = document.domain + '_testCookie=dummyValue;';
   document.cookie = testCookie;
@@ -29,7 +25,13 @@
     console.log( 'Cookies are disabled' );
   }
   
-  addEventHandler(function(event) {
+  addMessageHandler(function(event) {
+    var cookieValue = function(cookieName) {
+    var match = (';' + document.cookie).match(new RegExp(';' + cookieName + '=([^;]+)'));
+    if (match) 
+      return match[1];
+    };
+    
    	var cookieName = event.data ;
     var cookieValue = cookieValue(cookieName);
     parent.postMessage({
