@@ -4,6 +4,15 @@
 <title>Cookie</title>
 <script>
 (function() {
+  function addEventHandler(handleEvent){
+    if (window.addEventListener) {
+      window.addEventListener("message", handleEvent, false);
+    } else {
+    // Internet Explorer versions prior to IE 9
+      window.attachEvent("onmessage", handleEvent);
+    }
+  } 
+  
   var iFrame = document.createElement("IFRAME");
   iFrame.setAttribute("src", "https://rawgit.com/qoomon/3rd-party-cookie-test/master/cookie.html");
   iFrame.style.width = "0px";
@@ -17,15 +26,6 @@
    	var message = event.data ;
    	console.log( "receivedMessage: \n" + JSON.stringify(message,2,2));
   });
-  
-  function addEventHandler(handleEvent){
-    if (window.addEventListener) {
-      window.addEventListener("message", handleEvent, false);
-    } else {
-    // Internet Explorer versions prior to IE 9
-      window.attachEvent("onmessage", handleEvent);
-    }
-  } 
 })();
 </script>
 </head>
