@@ -4,31 +4,42 @@
 <title>Cookie</title>
 <script>
 (function(){
- var  testCookieName = 'testCookie';
- document.cookie = testCookieName + "=yes;";
- var cookiesEnabled =  document.cookie.indexOf( testCookieName ) == -1 
- if(cookiesEnabled) {
-  console.log( "Cookies are enabled" );
- } else {
-  console.log(( "Cookies are disabled" );
- }
+  var  testCookie = document.domain + '_testCookie=dummyValue;';
+  document.cookie = testCookie;
+  var cookiesEnabled =  document.cookie.indexOf( testCookie ) == -1;
+  document.cookie = testCookie + 'expires=' + new Date(0).toGMTString() + ';';
+  if(cookiesEnabled) {
+    console.log( 'Cookies are enabled' );
+  } else {
+    console.log( 'Cookies are disabled' );
+  }
+  
+  addEventHandler(function(event) {
+   	var cookieName = event.data ;
+    var cookieValue = cookieValue(cookieName);
+    parent.postMessage({
+      cookiesEnabled: cookiesEnabled,
+      cookieName: cookieName,
+      cookieValue: cookieValue
+    }, "*");
+  });
+ });
  
- if (window.addEventListener) {
- 	window.addEventListener("message", handleEvent, false);
- } else {
-   // Internet Explorer versions prior to IE 9
- 	window.attachEvent("onmessage", handleEvent);
- }
- 
- function handleEvent (event) {
- 	var message = event.data ;
- 	switch (message) {
- 	  case "cookie":
- 	    parent.postMessage(cookiesEnabled, "*");
- 	    break;
- 	  default:
- 	}
- }
+ function addEventHandler(handleEvent){
+    if (window.addEventListener) {
+      window.addEventListener("message", handleEvent, false);
+    } else {
+    // Internet Explorer versions prior to IE 9
+      window.attachEvent("onmessage", handleEvent);
+    }
+  } 
+  
+  function cookieValue(cookieName) {
+    var match = (';' + document.cookie).match(new RegExp(';' + cookieName + '=([^;]+)'));
+    if (match) 
+      return match[1];
+  }
+}
 })();
 </script>
 </head>
