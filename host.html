@@ -9,21 +9,23 @@
   iFrame.style.width = "0px";
   iFrame.style.height = "0px";
   iFrame.onload = function(){
-    iFrame.contentWindow.postMessage("cookie", "*");
+    iFrame.contentWindow.postMessage("specialCookie", "*");
   }
   document.body.appendChild(iFrame);
   
-  if (window.addEventListener) {
-   	window.addEventListener("message", handleEvent, false);
-  } else {
-    // Internet Explorer versions prior to IE 9
-   	window.attachEvent("onmessage", handleEvent);
-  }
-  
-  function handleEvent (event) {
+  addEventHandler(function(event){
    	var message = event.data ;
-   	alert( "receivedMessage: \n" + JSON.stringify(message,2,2));
-   }
+   	console.log( "receivedMessage: \n" + JSON.stringify(message,2,2));
+  });
+  
+  function addEventHandler(handleEvent){
+    if (window.addEventListener) {
+      window.addEventListener("message", handleEvent, false);
+    } else {
+    // Internet Explorer versions prior to IE 9
+      window.attachEvent("onmessage", handleEvent);
+    }
+  } 
 })();
 </script>
 </head>
