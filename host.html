@@ -6,7 +6,7 @@
 (function() {
   
   var iframeSrc = "https://rawgit.com/qoomon/3rd-party-cookie-test/master/cookie.html";
-  var iFrame = createHiddenIFrame();
+  var iFrame = createHiddenIFrame(iframeSrc);
   document.body.appendChild(iFrame);
   iFrame.onload = function(){
     iFrame.contentWindow.postMessage("specialCookie", "*");
