@@ -5,7 +5,7 @@
 <script>
 (function(){
   
-  var setCookie = function(cookieName, cookieValue, expireDate) {
+  function setCookie(cookieName, cookieValue, expireDate) {
     if(expireDate) {
       document.cookie = cookieName + '=' + cookieValue + '; expires=' + expireDate.toGMTString() + ';';
     } else {
@@ -13,14 +13,14 @@
     }
   };
   
-  var getCookieValue = function(cookieName) {
+  function getCookie(cookieName) {
     var match = (';' + document.cookie).match(new RegExp(';' + cookieName + '=([^;]+)'));
     if (match) {
       return match[1];
     }
   };
   
-  var containsCookie = function(cookieName) {
+  function containsCookie(cookieName) {
     var match = (';' + document.cookie).match(new RegExp(';' + cookieName + '=([^;]+)'));
     if (match) {
       return true;
@@ -28,7 +28,7 @@
     return false;
   };
 
- var addMessageHandler = function(handleEvent){
+ function addMessageHandler(handleEvent){
     if (window.addEventListener) {
       window.addEventListener("message", handleEvent, false);
     } else {
@@ -48,7 +48,7 @@
   addMessageHandler(function(event) {
     var cookiesEnabled = checkCookiesEnabled();
     var cookieName = event.data;
-    var cookieValue = getCookieValue(cookieName);
+    var cookieValue = getCookie(cookieName);
     parent.postMessage({
       cookiesEnabled: cookiesEnabled,
       cookieName: cookieName,
