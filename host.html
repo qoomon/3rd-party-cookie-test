@@ -4,16 +4,23 @@
 <title>Cookie</title>
 <script>
 (function() {
-  
-  var iframeSrc = "https://rawgit.com/qoomon/3rd-party-cookie-test/master/cookie.html";
-  var iFrame = createHiddenIFrame(iframeSrc);
+  var executionId = Math.random();
+
+  var iFrameSrc = "https://rawgit.com/qoomon/3rd-party-cookie-test/master/cookie.html" 
+  var iFrame = createHiddenIFrame(iFrameSrc);
   document.body.appendChild(iFrame);
   iFrame.onload = function(){
-    iFrame.contentWindow.postMessage("specialCookie", "*");
+    iFrame.contentWindow.postMessage({
+      executionId: executionId,
+      cookieName: "specialCookie"
+    }, "*");
   };
   
   addMessageHandler(function(event){
-    if (event.origin !== iframeSrc){return;}
+    var message = event.data ;
+    if (event.origin !== getOrigin(iFrameSrc) || message.executionId != executionId)
+      return;
+    
     var message = event.data ;
     console.log( "receivedMessage: \n" + JSON.stringify(message,2,2));
   });
@@ -35,6 +42,11 @@
       window.attachEvent("onmessage", handleEvent);
     }
   } 
+  
+  function getOrigin(url) {
+    var match = url.match(/^(https?:\/\/[^/]*)/);
+    return match[1];
+  };
 })();
 </script>
 </head>
