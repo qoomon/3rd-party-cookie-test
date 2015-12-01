@@ -4,7 +4,30 @@
 <title>Cookie</title>
 <script>
 (function() {
-  var addEventHandler = function(handleEvent){
+  
+  var iframeSrc = "https://rawgit.com/qoomon/3rd-party-cookie-test/master/cookie.html";
+  var iFrame = createHiddenIFrame();
+  document.body.appendChild(iFrame);
+  iFrame.onload = function(){
+    iFrame.contentWindow.postMessage("specialCookie", "*");
+  };
+  
+  addMessageHandler(function(event){
+    if (event.origin !== iframeSrc){return;}
+    var message = event.data ;
+    console.log( "receivedMessage: \n" + JSON.stringify(message,2,2));
+  });
+  
+  function createHiddenIFrame(){
+    var iFrame = document.createElement("IFRAME");
+    iFrame.setAttribute("src", src);
+    iFrame.style.display = "none";
+    iFrame.style.width = "0px";
+    iFrame.style.height = "0px";
+    return iFrame;
+  }
+  
+  function addMessageHandler(handleEvent){
     if (window.addEventListener) {
       window.addEventListener("message", handleEvent, false);
     } else {
@@ -12,20 +35,6 @@
       window.attachEvent("onmessage", handleEvent);
     }
   } 
-  
-  var iFrame = document.createElement("IFRAME");
-  iFrame.setAttribute("src", "https://rawgit.com/qoomon/3rd-party-cookie-test/master/cookie.html");
-  iFrame.style.width = "0px";
-  iFrame.style.height = "0px";
-  iFrame.onload = function(){
-    iFrame.contentWindow.postMessage("specialCookie", "*");
-  };
-  document.body.appendChild(iFrame);
-  
-  addEventHandler(function(event){
-    var message = event.data ;
-    console.log( "receivedMessage: \n" + JSON.stringify(message,2,2));
-  });
 })();
 </script>
 </head>
